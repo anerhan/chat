@@ -1,25 +1,28 @@
-production:
-  sessions:
-    default:
-      database: chat_production
-      hosts:
-        - localhost:27017
-      options:
-  options:
-    raise_not_found_error: false
 development:
   sessions:
     default:
       database: chat_development
       hosts:
         - localhost:27017
+      options:
   options:
     raise_not_found_error: false
+
 test:
   sessions:
     default:
       database: chat_test
       hosts:
         - localhost:27017
+  options:
+    raise_not_found_error: false
+
+production:
+  sessions:
+    default:
+      database: chat_poduction
+      hosts:
+        - localhost:27017
+      options:
   options:
     raise_not_found_error: false

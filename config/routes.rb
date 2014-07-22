@@ -5,6 +5,17 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'main#index'
 
+  resources :room
+
+  scope constraints: lambda { |r| r.env['warden'].user.nil?} do
+    get "sign_up",  to: "users#new",    as: "sign_up"
+    get "sign_in",  to: "sessions#new", as: "sign_in"
+  end
+  get "sign_anonymous",  to: "users#create", as: "anonymous_sign_in"
+  get "sign_out",  to: "sessions#destroy", as: "sign_out"
+  resources :users, only: :create
+  resources :sessions, only: [:create, :new]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

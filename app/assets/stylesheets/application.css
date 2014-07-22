@@ -12,7 +12,7 @@
  *
  *= require_self
  *= require bootstrap.min
- *= require bootstrap-theme.min
+ *= require bootstrap-theme
  *= require_tree .
  */
 
@@ -23,4 +23,19 @@
        url('../assets/glyphicons-halflings-regular.woff') format('woff'),
        url('../assets/glyphicons-halflings-regular.ttf') format('truetype'),
        url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+body {
+  padding-top: 50px;
+}
+.center {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+.form-signin {
+max-width: 330px;
+padding: 15px;
+margin: 0 auto;
 }

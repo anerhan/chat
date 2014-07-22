@@ -1,0 +1,6 @@
+h3.form-signin-heading Sign Up
+= simple_form_for @user || User.new, html: {class: 'form-signin form-horizontal'} do |f|
+  = f.input :email, label: false, placeholder:  'Email'
+  = f.input :password, label: false, placeholder:  'password'
+  = f.input :password_confirmation, label: false, placeholder: 'password confirmation'
+  = f.submit 'Sign Up', class: "btn btn-lg btn-primary btn-block"

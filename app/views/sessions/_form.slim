@@ -1,0 +1,5 @@
+h3.form-signin-heading Sign In
+= simple_form_for :user, url: sessions_path, html: {class: ' form-signin form-horizontal'} do |f|
+  = f.input :email, label: false, placeholder:  'Email'
+  = f.input :password, label: false, placeholder:  'Password'
+  = f.submit 'Sign in', class: "btn btn-lg btn-primary btn-block"

@@ -1,0 +1,139 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.13'
+
+group :production, :staging, :local do
+	gem 'unicorn'
+end
+
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier',     '>= 1.0.3'
+  gem 'execjs'
+  gem 'therubyracer'#, '0.10.0'
+  #View Builders
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem "twitter-bootstrap-rails"
+  # gem 'bootstrap-datepicker-rails'
+  gem 'bootstrap-datetimepicker-rails'
+
+  gem 'rubyzip2', require: 'zip/zip'
+end
+
+gem 'slim'
+gem 'simple_form'
+gem 'ckeditor'
+# gem 'country_select'
+
+gem 'jquery-rails', "~> 3.0.4"
+gem 'jquery-ui-rails'
+gem 'chosen-rails'
+gem "jquery-tmpl-rails"
+
+group :development, :staging do
+  # gem 'rack-mini-profiler'
+end
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  # gem "factory_girl_rails", "~> 4.0"
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  # gem 'rack-mini-profiler'
+  # gem 'progressbar'
+  gem 'faker'
+end
+
+group :test do
+  # gem 'shoulda-matchers'
+  gem 'mongoid-rspec'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'headless'
+  gem 'mock_redis'
+  gem 'database_cleaner'
+  gem 'uuid'
+  gem 'timecop'
+end
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano_colors'
+  gem 'capistrano-unicorn',:require => false
+  gem 'capistrano-deploy', :require => false
+  gem 'rvm-capistrano',    :require => false
+
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'awesome_print'
+  gem "sextant" # Show routes in /rails/routes
+end
+
+gem 'kaminari'
+
+# Neo4j
+gem 'neography'
+
+# MongoDB
+# gem 'mongoid', '~> 4', github: 'mongoid/mongoid'
+gem 'mongoid'
+gem 'bson'
+gem 'bson_ext'
+
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'carrierwave-mongoid'
+# gem 'cloudinary'
+
+# ElasticSearch
+gem "tire" #, "~> 0.5.1"
+gem 'tire-contrib', git: 'https://github.com/karmi/tire-contrib.git'
+
+#Pretty log
+gem 'grizzled-rails-logger'
+
+#Authenticate
+gem 'warden'
+gem 'bcrypt-ruby', :require => 'bcrypt'
+
+# Curl Requester
+gem 'curb'
+
+# Oauth
+gem "omniauth"
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+gem 'omniauth-google'
+
+# settingslogic
+gem 'settingslogic'
+
+gem 'geoip'
+
+gem 'phony'
+gem 'thin'
+
+
+gem 'meta-tags', require: 'meta_tags'
+gem 'faye', '<= 1.0.0'
+# gem 'faye-websocket'
+gem 'rack-cors'
+gem 'thin'
+gem 'resque', require: 'resque/server'
+
+gem 'active_model_serializers'
+
+gem 'qrcoder', git: 'https://github.com/milboj/qrcoder.git'
+# gem 'barcode-generator'
+# gem 'gbarcode', git: 'https://github.com/chiting/gbarcode.git'
+gem 'barby'

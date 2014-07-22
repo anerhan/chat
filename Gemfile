@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.4'
 
-gem 'mongoid'
+# gem 'mongoid'
+gem 'mongoid', github: 'mongoid/mongoid'
+# gem 'multi_json'
 gem 'bson'
 gem 'bson_ext'
 
@@ -17,6 +19,14 @@ gem 'jbuilder', '~> 2.0'
 # gem 'spring', group: :development
 gem 'bcrypt', '~> 3.1.7'
 gem 'unicorn'
+
+gem 'active_model_serializers'
+gem "jquery-tmpl-rails"
+
+gem 'warden'
+
+gem 'slim'
+gem 'simple_form'
 
 group :development do
   gem 'capistrano-rails'
