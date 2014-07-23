@@ -11,7 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require namespace
 //= require jquery_ujs
+//= require jquery-tmpl
 //= require bootstrap.min
 //= require turbolinks
+//= require_tree ./libs
+//= require_tree ./templates
 //= require_tree .
+

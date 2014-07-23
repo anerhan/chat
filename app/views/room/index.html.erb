@@ -1,2 +1,12 @@
-<%= current_user.full_name %>
-<%= current_user.id %>
+<div id='content'>
+</div>
+<form role="form">
+  <div class="form-group input-group-sm">
+    <label for="chat">This is a Chat</label>
+    <div class="form-control input-margin" id="chat-area"></div>
+  <div class="form-group">
+    <input type="text" class="form-control input-lg input-margin" id="message" placeholder="input your message here" data-user_token='<%= current_user.access_token %>' autofocus>
+    <!-- <button type="submit" class="btn btn-primary pull-right">Send message...</button> -->
+  </div>
+
+</form>

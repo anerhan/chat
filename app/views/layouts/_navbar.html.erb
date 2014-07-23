@@ -13,8 +13,8 @@
       <div class="collapse navbar-collapse pull-right">
         <ul class="nav navbar-nav">
           <% if !signed_in? %>
-            <li><%= link_to 'Anonymous', anonymous_sign_in_path %></a></li>
-            <li><%= link_to 'Operator', sign_up_path %></a></li>
+            <li><%= link_to 'Sign (up & in) like Anonymous', anonymous_sign_in_path %></a></li>
+            <li><%= link_to 'Sign in/up like Operator', sign_up_path %></a></li>
           <% else %>
             <li><%= link_to current_user.full_name, room_index_path %></a></li>
             <li><%= link_to 'Sign Out', sign_out_path %></a></li>

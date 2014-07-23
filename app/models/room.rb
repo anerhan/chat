@@ -12,9 +12,10 @@ class Room
 
   validates :requestor_id, presence: true
 
-  scope :active, where(is_closed: false, :closed_at => nil)
-  scope :closed, where(is_closed: true, :closed_at.ne => nil)
-  scope :opened, active.where(:requestor_id.ne => nil,  responder_id: nil)
+  scope :active, -> { where(is_closed: false, :closed_at => nil) }
+  scope :closed, -> { where(is_closed: true, :closed_at.ne => nil) }
+  scope :opened, -> { active.where(:requestor_id.ne => nil,  responder_id: nil).desc(:created_at) }
+  scope :worked, -> { active.where(:requestor_id.ne => nil,  :responder_id.ne => nil).desc(:created_at) }
 
   def close!
     self.is_closed = true

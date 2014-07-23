@@ -16,6 +16,14 @@ Rails.application.routes.draw do
   resources :users, only: :create
   resources :sessions, only: [:create, :new]
 
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :rooms
+      resources :messages
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -65,3 +73,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+
