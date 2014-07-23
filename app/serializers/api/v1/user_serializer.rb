@@ -9,10 +9,10 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   end
 
   def worked_rooms
-    object.anonymous? ? [object.rooms.worked.first] : object.rooms.worked
+    object.anonymous? ? [object.rooms.worked.where(requestor_id: object.id).first] : object.rooms.worked
   end
 
   def opened_rooms
-    object.anonymous? ? [object.rooms.opened.first] : object.rooms.opened
+    object.anonymous? ? [object.rooms.opened.where(requestor_id: object.id).first] : object.rooms.opened
   end
 end
