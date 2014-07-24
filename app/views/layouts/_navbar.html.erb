@@ -13,11 +13,26 @@
       <div class="collapse navbar-collapse pull-right">
         <ul class="nav navbar-nav">
           <% if !signed_in? %>
-            <li><%= link_to 'Sign (up & in) like Anonymous', anonymous_sign_in_path %></a></li>
-            <li><%= link_to 'Sign in/up like Operator', sign_up_path %></a></li>
+            <li>
+              <%= link_to anonymous_sign_in_path do %>
+                Sign (up & in) like Anonymous
+                <span class="glyphicon glyphicon-log-in"></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to sign_up_path do %>
+                Sign in/up like Operator
+                <span class="glyphicon glyphicon-log-in"></span>
+              <% end %>
+            </li>
           <% else %>
-            <li><%= link_to current_user.full_name, room_index_path %></a></li>
-            <li><%= link_to 'Sign Out', sign_out_path %></a></li>
+            <li><%= link_to current_user.full_name, room_index_path %></li>
+            <li>
+              <%= link_to sign_out_path do %>
+                <span class="glyphicon glyphicon-log-out"></span>
+                Sign Out
+              <% end %>
+           </li>
           <% end %>
         </ul>
       </div>

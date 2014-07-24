@@ -27,6 +27,8 @@ gem 'warden'
 
 gem 'slim'
 gem 'simple_form'
+gem 'thin'
+gem 'faye'
 
 group :development do
   gem 'capistrano-rails'

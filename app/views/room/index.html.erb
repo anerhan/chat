@@ -1,12 +1,43 @@
-<div id='content'>
-</div>
-<form role="form">
-  <div class="form-group input-group-sm">
-    <label for="chat">This is a Chat</label>
-    <div class="form-control input-margin" id="chat-area"></div>
-  <div class="form-group">
-    <input type="text" class="form-control input-lg input-margin" id="message" placeholder="input your message here" data-user_token='<%= current_user.access_token %>' autofocus>
-    <!-- <button type="submit" class="btn btn-primary pull-right">Send message...</button> -->
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <div class="panel-title">
+          Chat
+          <span class="pull-right small" id="room-close" style="display: block;">
+            <a href="#">
+              <span class="glyphicon glyphicon-remove">
+              </span>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <form role="form">
+          <div class="form-group input-group-sm">
+            <div class="form-control input-margin" id="chat-area"></div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg input-margin" id="message" placeholder="input your message here" data-user_token='<%= current_user.access_token %>' autofocus>
+              <!-- <button type="submit" class="btn btn-primary pull-right">Send message...</button> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Responders</div>
+      </div>
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked text-left small" id="chat-responders">
+<!--           <li class="active"><a href="#"><span class="badge pull-right">42</span>Anonumous</a></li>
+          <li><a href="#" class="active"><span class="badge pull-right">7</span>Anerhan@mail.ru</a></li>
+          <li><a href="#"><span class="badge pull-right">3</span>Grigoriy</a></li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
-</form>

@@ -1,5 +1,11 @@
 window.chatApp = {
   currentUser: ''
+  currentRoom: ''
+  currentResponders: ''
+  currentResponderListItem: () ->
+    $('#responders-list-item-' + chatApp.currentRoom.token)
+  chatRespondersArea: () ->
+    $('#chat-responders')
   messageArea: () ->
     $('#message')
   chatArea: () ->
@@ -14,4 +20,8 @@ window.chatApp = {
      $('#message').data('room_token')
   setCurrentUser: (data) ->
     chatApp.currentUser = data.user
+  setCurrentRoom: (room) ->
+    chatApp.currentRoom = room
+  setCurrentResponders: (responders) ->
+    chatApp.currentResponders = responders
 }

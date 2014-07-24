@@ -43,4 +43,7 @@ class Api::V1::BaseController < ActionController::Base
     def render_401 message = nil
       respond_with_code :unauthorized, 'Invalid Auth'
     end
+    def render_404 message = nil
+      respond_with_code :not_found, 'Document not Found'
+    end
 end

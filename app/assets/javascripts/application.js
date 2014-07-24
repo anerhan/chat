@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require jquery-tmpl
 //= require bootstrap.min
-//= require turbolinks
+//q= require turbolinks
 //= require_tree ./libs
 //= require_tree ./templates
 //= require_tree .

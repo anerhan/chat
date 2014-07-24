@@ -4,5 +4,11 @@ $ ->
       if e.keyCode == 13
         e.preventDefault();
         chatApp.sendMessage e, $(e.target)
-        # chatApp.setRoomToken(chatApp.userToken())
-        # return false;
+
+  $(document).on 'click', ".responders-list-item", (e) ->
+    chatApp.changeRoom($(this).data('room_token'))
+
+  $(document).on 'click', "#room-close", (e) ->
+    chatApp.closeRoom()
+
+
