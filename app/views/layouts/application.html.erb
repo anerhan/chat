@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="access-token" content="<%= current_user.access_token if current_user %>">
   <title>Chat</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag "http://#{FAYE[Rails.env]['host']}:#{FAYE[Rails.env]['port']}/#{FAYE[Rails.env]['mount']}.js" %>
+
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>

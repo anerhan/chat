@@ -11,6 +11,41 @@ Bundler.require(*Rails.groups)
 
 module Chat
   class Application < Rails::Application
+
+    # config.middleware.delete Rack::Lock
+    # class CsrfProtection
+    #   def incoming(message, request, callback)
+    #     session_token = request.session['_csrf_token']
+    #     message_token = message['ext'] && message['ext'].delete('csrfToken')
+
+    #     unless session_token == message_token
+    #       message['error'] = '401::Access denied'
+    #     end
+    #     callback.call(message)
+    #   end
+    # end
+
+    # config.middleware.insert_after ActionDispatch::Session::CookieStore,
+    #                            Faye::RackAdapter,
+    #                            :extensions => [CsrfProtection.new],
+    #                            :mount      => '/faye/chat',
+    #                            :timeout    => 25
+
+    # config.middleware.use FayeRails::Middleware, mount: '/faye', :timeout => 25
+  #   config.middleware.delete Rack::Lock
+  #   config.middleware.use FayeRails::Middleware, mount: '/faye', :timeout => 25 do
+
+  #   class MockExtension
+  #     def incoming(message, callback)
+  #       callback.call(message)
+  #     end
+  #   end
+
+  # add_extension(MockExtension.new)
+  #     # listen(9292)
+  #     map '/wrooms/**' => Faye::RoomsController
+  #     map :default => :block
+  #   end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -1,5 +1,5 @@
 default: &default
-  mount: '/faye/chat'
+  mount: 'faye/chat'
   port: 9295
   timeout: 45
   host: 127.0.0.1

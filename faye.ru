@@ -1,27 +1,62 @@
+ # RAILS_ENV=production bundle exec thin -p 9295 -R ./faye.ru -P ./tmp/pids/faye.pid start
+ # curl http://localhost:9295/faye/chat -d 'message={"channel":"/messages/new", "data":"hello", "ext":{"secret":"slkjsafhkjfaskjh7asf9f8as7fas8f0a"}}'
 require 'faye'
 Faye::WebSocket.load_adapter 'thin'
-
 require File.expand_path '../config/initializers/faye.rb', __FILE__
+FAYE_CONFIG = FAYE['development']
 
 class ServerAuth
-  def incoming message, callback
+  def incoming message, request, callback
+    csrf_token = message['ext'] && message['ext'].delete('csrfToken')
+    access_token = message['ext'] && message['ext'].delete('accessToken')
     if message['channel'] !~ %r{^/meta/}
-      if message['ext']['secret'] != FAYE['development']['secret']
-        message['error'] = 'Invalid authentication token'
-      end
+      auth = csrf_token ? (csrf_token == FAYE_CONFIG['secret']) : false
+      message['error'] = 'Invalid secret token' if !auth
     end
     callback.call message
   end
 
   # IMPORTANT: clear out the auth token so it is not leaked to the client
   def outgoing message, callback
-    if message['ext'] && message['ext']['secret']
+    if message['ext']
       message['ext'] = {}
     end
     callback.call message
   end
 end
 
-faye_server = Faye::RackAdapter.new(:mount => FAYE['development']['mount'], :timeout => FAYE['development']['timeout'])
+faye_server = Faye::RackAdapter.new(mount: "/#{FAYE_CONFIG['mount']}", timeout: FAYE_CONFIG['timeout'] )
 faye_server.add_extension ServerAuth.new
+
+faye_server.on(:handshake) do |client_id|
+  p "********************HandShake********************"
+  p client_id
+  p "**********************************************"
+end
+
+faye_server.on(:subscribe) do |client_id, channel|
+  p "********************Subscribe********************"
+  p "#{client_id} => #{channel}"
+  p "**********************************************"
+end
+
+faye_server.on(:unsubscribe) do |client_id, channel|
+  p "********************UnSubscribe********************"
+  p "#{client_id} => #{channel}"
+  p "**********************************************"
+end
+
+faye_server.on(:disconnect) do |client_id, channel|
+  p "********************Disconnect********************"
+  p "#{client_id}"
+  p "**********************************************"
+end
+
+faye_server.on(:publish) do |client_id, channel, data|
+  p "********************Publish********************"
+  p "#{client_id} => #{channel} => #{data}"
+  p "**********************************************"
+end
 run faye_server
+
+
