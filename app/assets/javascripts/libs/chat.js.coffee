@@ -1,21 +1,42 @@
 $.extend chatApp, {
-  prepare: () ->
+  init: () ->
     if chatApp.chatArea().length
       chatApp.chatArea().animate({scrollTop: 100000 }, 2000)
       chatApp.getCurrentUser()
-      # if chatApp.currentUser.available_rooms.length > 0
-        # if chatApp.currentUser.is_anonymous
-        #   chatApp.setCurrentRoom(chatApp.currentUser.available_rooms[0])
       if chatApp.currentUser.available_rooms.length > 0
         chatApp.setCurrentRoom(chatApp.currentUser.available_rooms[0])
         chatApp.reloadMessages()
-        # chatApp.setRoomToken(chatApp.currentUser.available_rooms[0].token)
-        # chatApp.reloadMessages(chatApp.getRoomMessages())
       chatApp.getResponders()
       chatApp.reloadResponders()
+      chatApp.selectCurrentResponder()
+      chatApp.setupWsClient()
+      # Subscribe to all channels
+      chatApp.wsSubscribeToMessages()
+      chatApp.wsSubscribeToRooms()
+      chatApp.wsSubscribeToClosedRooms()
 
-      chatApp.chatRespondersArea().find('li').removeClass('active')
-      chatApp.currentResponderListItem().addClass('active')
+
+  updateMessageCounterInRoom: (roomToken) ->
+    counterEl = $('#responders-list-item-' + roomToken).find('span.msg-counter')
+    count = parseInt(counterEl.text()) + 1
+    counterEl.text(count)
+
+  wsSubscribeToMessages: () ->
+    chatApp.wsClient.subscribe '/' + chatApp.fayeToken() + '/messages', (data) ->
+      if chatApp.currentRoom.token == data.message.room_token
+        chatApp.chatArea().append($.tmpl('templates/message', data.message))
+      chatApp.updateMessageCounterInRoom(data.message.room_token)
+  wsSubscribeToRooms: () ->
+    chatApp.wsClient.subscribe '/' + chatApp.fayeToken() + '/rooms', (data) ->
+      chatApp.currentUser.available_rooms.push(data.room)
+      chatApp.chatRespondersArea().prepend($.tmpl('templates/responder', data.room.requestor))
+      console.log 'Rooms:', data.room.requestor
+
+  wsSubscribeToClosedRooms: () ->
+    # remove room in responders list
+    chatApp.wsClient.subscribe '/' + chatApp.fayeToken() + '/rooms/close', (data) ->
+      alert 'CloseRoom'
+      console.log 'Closed Rooms: ', data
 
   closeRoom: (roomToken) ->
     roomToken ?= chatApp.currentRoom.token
@@ -34,10 +55,13 @@ $.extend chatApp, {
         console.log 'nextRoom', ' => ', nextItem.data('room_token')
       async: false
 
-  changeRoom: (room_token) ->
-    chatApp.setCurrentRoom(chatApp.detectRoomByToken(room_token))
+  selectCurrentResponder: () ->
     chatApp.chatRespondersArea().find('li').removeClass('active')
     chatApp.currentResponderListItem().addClass('active')
+
+  changeRoom: (room_token) ->
+    chatApp.setCurrentRoom(chatApp.detectRoomByToken(room_token))
+    chatApp.selectCurrentResponder()
     chatApp.reloadMessages(chatApp.getRoomMessages())
 
   detectRoomByToken: (room_token) ->
@@ -68,7 +92,6 @@ $.extend chatApp, {
     chatApp.chatArea().empty()
     for message in messages
       chatApp.chatArea().append($.tmpl('templates/message', message))
-
 
   getRoomMessages: (e, element) ->
     if chatApp.chatArea().length

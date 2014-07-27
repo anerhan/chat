@@ -2,6 +2,7 @@ class User
   include Base
   include Authenticable
   include Trackable
+  include FayeTockenable
   field :email
   field :name
   field :rooms_count, type: Integer, default: 0

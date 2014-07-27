@@ -1,5 +1,5 @@
 $ ->
-  chatApp.prepare()
+  chatApp.init()
   $(document).on 'keydown', "form #message", (e) ->
       if e.keyCode == 13
         e.preventDefault();

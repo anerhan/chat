@@ -1,0 +1,34 @@
+window.chatApp = {
+  currentUser: ''
+  currentRoom: ''
+  currentResponders: ''
+  wsClient: ''
+  setCurrentUser: (data) ->
+    chatApp.currentUser = data.user
+  setCurrentRoom: (room) ->
+    chatApp.currentRoom = room
+  setCurrentResponders: (responders) ->
+    chatApp.currentResponders = responders
+  currentResponderListItem: () ->
+    $('#responders-list-item-' + chatApp.currentRoom.token)
+  chatRespondersArea: () ->
+    $('#chat-responders')
+  messageArea: () ->
+    $('#message')
+  chatArea: () ->
+    $('#chat-area')
+  accessToken: () ->
+    $('meta[name=access-token]').attr('content')
+  fayeToken: () ->
+    $('meta[name=faye-token]').attr('content')
+  csrfToken: () ->
+    $('meta[name=csrf-token]').attr('content')
+  setupWsClient: () ->
+    chatApp.wsClient = new Faye.Client('<%="http://#{FAYE[Rails.env]['host']}:#{FAYE[Rails.env]['port']}/#{FAYE[Rails.env]['mount']}"%>')
+    chatApp.wsClient.addExtension outgoing: (message, callback) ->
+      message.ext = message.ext or {}
+      message.ext.csrfToken = chatApp.csrfToken()
+      # message.ext.accessToken = $("meta[name=access-token]").attr("content")
+      # message.ext.fayeToken = $("meta[name=faye-token]").attr("content")
+      callback message
+}

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# PIDFILE=./tmp/pids/resque.pid BACKGROUND=yes QUEUE=* RAILS_ENV=development bundle exec rake resque:work
+
 # RAILS_ENV=development
 APP_ROOT=$HOME/projects/chat
 
@@ -15,3 +17,5 @@ kill -9 $(cat $RESQUE_PID)
 
 # cd $APP_ROOT && RAILS_ENV=production bundle exec thin -d -p 9295 -R $FAYE_CONFIG -P $FAYE_PID start
 # cd $APP_ROOT && PIDFILE=$RESQUE_PID BACKGROUND=yes QUEUE=* RAILS_ENV=$RAILS_ENV bundle exec rake resque:work
+
+

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.update_tracked_fields!(request.ip)
+      @user.reset_faye_token
       @user.reset_access_token!
       warden.set_user @user
       redirect_to room_index_path

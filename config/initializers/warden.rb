@@ -20,6 +20,7 @@ Warden::Strategies.add(:password) do
     user = User.find_by(email: params['user']['email']) if params['user']
     if user && user.valid_password?(params['user']['password'])
 	    user.update_tracked_fields!(request.ip)
+      user.reset_faye_token
       user.reset_access_token!
       success! user
     else

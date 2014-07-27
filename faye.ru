@@ -1,5 +1,12 @@
  # RAILS_ENV=production bundle exec thin -p 9295 -R ./faye.ru -P ./tmp/pids/faye.pid start
  # curl http://localhost:9295/faye/chat -d 'message={"channel":"/messages/new", "data":"hello", "ext":{"secret":"slkjsafhkjfaskjh7asf9f8as7fas8f0a"}}'
+
+## START RESQUES
+#  PIDFILE=./tmp/pids/resque.pid QUEUE=* RAILS_ENV=development bundle exec rake resque:work
+## START FAYE
+#   RAILS_ENV=production bundle exec thin -p 9295 -R ./faye.ru -P ./tmp/pids/faye.pid start
+
+
 require 'faye'
 Faye::WebSocket.load_adapter 'thin'
 require File.expand_path '../config/initializers/faye.rb', __FILE__
@@ -28,35 +35,26 @@ end
 faye_server = Faye::RackAdapter.new(mount: "/#{FAYE_CONFIG['mount']}", timeout: FAYE_CONFIG['timeout'] )
 faye_server.add_extension ServerAuth.new
 
-faye_server.on(:handshake) do |client_id|
-  p "********************HandShake********************"
-  p client_id
-  p "**********************************************"
-end
+# faye_server.on(:handshake) do |client_id|
+#   p "[ HandShake ] => #{client_id}"
+# end
 
-faye_server.on(:subscribe) do |client_id, channel|
-  p "********************Subscribe********************"
-  p "#{client_id} => #{channel}"
-  p "**********************************************"
-end
+# faye_server.on(:subscribe) do |client_id, channel|
+#   p "[ Subscribe ] => #{client_id} : #{channel}"
+# end
 
-faye_server.on(:unsubscribe) do |client_id, channel|
-  p "********************UnSubscribe********************"
-  p "#{client_id} => #{channel}"
-  p "**********************************************"
-end
+# faye_server.on(:unsubscribe) do |client_id, channel|
+#   p "[ UnSubscribe ] => #{client_id} : #{channel}"
+# end
 
-faye_server.on(:disconnect) do |client_id, channel|
-  p "********************Disconnect********************"
-  p "#{client_id}"
-  p "**********************************************"
-end
+# faye_server.on(:disconnect) do |client_id, channel|
+#   p "[ Disconnect ] => #{client_id}: #{channel}"
+#   p "************ Session ************************"
+# end
 
-faye_server.on(:publish) do |client_id, channel, data|
-  p "********************Publish********************"
-  p "#{client_id} => #{channel} => #{data}"
-  p "**********************************************"
-end
+# faye_server.on(:publish) do |client_id, channel, data|
+#   p "[ Publish ] => #{client_id}: #{channel} => #{data}"
+# end
 run faye_server
 
 

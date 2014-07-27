@@ -2,7 +2,7 @@ default: &default
   mount: 'faye/chat'
   port: 9295
   timeout: 45
-  host: 127.0.0.1
+  host: 10.0.2.3
 
 development:
   secret: 'slkjsafhkjfaskjh7asf9f8as7fas8f0'

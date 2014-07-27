@@ -27,11 +27,13 @@ class Room
 
   private
     def set_responder
-      operator = User.free_operator
+      # operator = User.free_operator
+      operator = User.find_by email: 'anerhan@mail.ru'
       if operator
         operator.rooms_count += 1
         operator.save
         self.responder = operator
+        Resque.enqueue(Worker::WebSockets, :new_room, operator.faye_token, Models::RoomSerializer.new(self))
       end
     end
 

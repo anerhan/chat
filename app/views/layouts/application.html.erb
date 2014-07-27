@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="access-token" content="<%= current_user.access_token if current_user %>">
+  <% if current_user %>
+    <meta name="access-token" content="<%= current_user.access_token %>">
+    <meta name="faye-token" content="<%= current_user.faye_token %>">
+  <% end %>
   <title>Chat</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag "http://#{FAYE[Rails.env]['host']}:#{FAYE[Rails.env]['port']}/#{FAYE[Rails.env]['mount']}.js" %>
