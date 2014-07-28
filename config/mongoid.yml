@@ -4,7 +4,6 @@ development:
       database: chat_development
       hosts:
         - localhost:27017
-      options:
   options:
     raise_not_found_error: false
 
@@ -23,6 +22,5 @@ production:
       database: chat_poduction
       hosts:
         - localhost:27017
-      options:
   options:
     raise_not_found_error: false

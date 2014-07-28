@@ -1,0 +1,15 @@
+default: &default
+  mount: 'faye/chat'
+  port: 9295
+  timeout: 45
+  host: 10.0.2.3
+
+development:
+  secret: 'slkjsafhkjfaskjh7asf9f8as7fas8f0'
+  <<: *default
+test:
+  secret: '98sa9s8f7as9as89as87f98safsa9f8s'
+  <<: *default
+production:
+  secret: '9acas090656as8asca9sa89s7a9sca85'
+  <<: *default

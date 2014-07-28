@@ -20,7 +20,8 @@
 /public/static
 /db/schema.rb
 
-/config/database.yml
+/config/mongoid.yml
+/config/faye.yml
 
 # Ignore IDE specific files
 .project

@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
 gem 'rails', '4.1.4'
 
-# gem 'mongoid'
 gem 'mongoid', github: 'mongoid/mongoid'
-# gem 'multi_json'
 gem 'bson'
 gem 'bson_ext'
 

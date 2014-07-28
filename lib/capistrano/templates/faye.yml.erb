@@ -1,0 +1,6 @@
+<%= fetch(:rails_env) %>:
+  mount: '<%= fetch(:faye_mount) %>'
+  port: <%= fetch(:faye_port) %>
+  timeout: <%= fetch(:faye_timeout) %>
+  host: <%= fetch(:faye_host) %>
+  secret: <%= fetch(:faye_secret) %>

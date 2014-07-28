@@ -1,0 +1,12 @@
+<%= fetch(:rails_env) %>:
+  sessions:
+    default:
+      database: <%= fetch(:db_name)%>
+      hosts:
+      <% fetch(:db_hosts).each do |host|%>
+        - <%= host %>
+      <%end%>
+    options:
+    <% fetch(:db_options).each do |key, value| %>
+      <%= key %>: <%= value %>
+    <% end %>
