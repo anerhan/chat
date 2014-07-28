@@ -30,13 +30,20 @@ $.extend chatApp, {
     chatApp.wsClient.subscribe '/' + chatApp.fayeToken() + '/rooms', (data) ->
       chatApp.currentUser.available_rooms.push(data.room)
       chatApp.chatRespondersArea().prepend($.tmpl('templates/responder', data.room.requestor))
+      if chatApp.currentUser.available_rooms.length == 1
+        chatApp.changeRoom(data.room.token)
       console.log 'Rooms:', data.room.requestor
 
   wsSubscribeToClosedRooms: () ->
     # remove room in responders list
     chatApp.wsClient.subscribe '/' + chatApp.fayeToken() + '/rooms/close', (data) ->
-      alert 'CloseRoom'
-      console.log 'Closed Rooms: ', data
+      if chatApp.currentRoom.token == data.room.token
+        chatApp.chatArea().attr('disabled','disabled')
+        chatApp.messageArea().attr('disabled','disabled')
+        chatApp.currentResponderListItem().attr('class', 'disabled')
+      # alert 'Room is Closed!'
+
+
 
   closeRoom: (roomToken) ->
     roomToken ?= chatApp.currentRoom.token
@@ -150,6 +157,8 @@ $.extend chatApp, {
               chatApp.reloadResponders()
               console.log 'New Room: ', data
               chatApp.chatArea().append($.tmpl('templates/message', data.room.last_message))
+              chatApp.currentUser.available_rooms.push(data.room)
+              chatApp.changeRoom(chatApp.currentRoom.token)
             async: false
     return false
 }

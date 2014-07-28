@@ -6,9 +6,11 @@ class Room
 
   belongs_to :requestor, class_name: 'User'
   belongs_to :responder, class_name: 'User'
-  embeds_many :messages
 
-  before_create :generate_token, :set_responder
+  embeds_many :messages
+  embeds_many :responders
+
+  before_create :generate_token, :set_responder, :set_base_responders
 
   validates :requestor_id, presence: true
 
@@ -22,18 +24,27 @@ class Room
     self.closed_at = Time.now.utc
     responder = self.responder
     responder.rooms_count -= 1
+    responder.rooms_count = 0 if responder.rooms_count < 0
     save && responder.save
+    responders.each do |r|
+      Resque.enqueue(Worker::WebSockets, :close_room, r.user.faye_token, Models::RoomSerializer.new(self))
+    end
   end
 
   private
     def set_responder
-      # operator = User.free_operator
-      operator = User.find_by email: 'anerhan@mail.ru'
+      operator = User.free_operator
       if operator
         operator.rooms_count += 1
         operator.save
         self.responder = operator
         Resque.enqueue(Worker::WebSockets, :new_room, operator.faye_token, Models::RoomSerializer.new(self))
+      end
+    end
+
+    def set_base_responders
+      [requestor, responder].each do |user|
+        self.responders << Responder.new(user: user)
       end
     end
 

@@ -9,8 +9,10 @@ window.chatApp = {
     chatApp.currentRoom = room
   setCurrentResponders: (responders) ->
     chatApp.currentResponders = responders
+  getResponderListItemByToken: (roomToken) ->
+    $('#responders-list-item-' + roomToken)
   currentResponderListItem: () ->
-    $('#responders-list-item-' + chatApp.currentRoom.token)
+    chatApp.getResponderListItemByToken(chatApp.currentRoom.token)
   chatRespondersArea: () ->
     $('#chat-responders')
   messageArea: () ->

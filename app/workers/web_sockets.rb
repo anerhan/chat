@@ -24,7 +24,7 @@ module Worker
     end
 
     def self.close_room(faye_token, room)
-      to_send = { channel: "/#{faye_token}/messages", data: room }.deep_merge!({ ext: { csrfToken: FAYE_CONFIG['secret'] }})
+      to_send = { channel: "/#{faye_token}/rooms/close", data: room }.deep_merge!({ ext: { csrfToken: FAYE_CONFIG['secret'] }})
       Curl.put(FAYE_URL, to_send.to_json) do |curl|
         curl.headers['Content-Type'] = 'application/json'
       end

@@ -8,6 +8,7 @@ class User
   field :rooms_count, type: Integer, default: 0
 
   has_many :rooms, foreign_key: :requestor_id, inverse_of: 'Room'
+
   attr_accessor :room_token, :messages_count
 
   validates :email,
