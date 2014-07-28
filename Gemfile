@@ -34,7 +34,13 @@ gem 'resque', require: 'resque/server'
 gem 'capistrano-resque', github: 'sshingler/capistrano-resque', require: false
 
 group :development do
-  gem 'capistrano-rails'
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano3-nginx_unicorn', require: false
   gem 'pry-rails'
   gem 'pry-nav'
 end
+
+

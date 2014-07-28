@@ -1,7 +1,7 @@
 $.extend chatApp, {
   init: () ->
     if chatApp.chatArea().length
-      chatApp.chatArea().animate({scrollTop: 100000 }, 2000)
+      chatApp.chatArea().animate({ scrollTop: 500 }, 2000)
       chatApp.getCurrentUser()
       if chatApp.currentUser.available_rooms.length > 0
         chatApp.setCurrentRoom(chatApp.currentUser.available_rooms[0])
