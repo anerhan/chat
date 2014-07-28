@@ -40,7 +40,8 @@ $.extend chatApp, {
       if chatApp.currentRoom.token == data.room.token
         chatApp.chatArea().attr('disabled','disabled')
         chatApp.messageArea().attr('disabled','disabled')
-        chatApp.currentResponderListItem().attr('class', 'disabled')
+      chatApp.currentResponderListItem().attr('class', 'disabled')
+      chatApp.currentResponderListItem().find('a').append('(closed)')
       # alert 'Room is Closed!'
 
 
